@@ -9,7 +9,7 @@ class EnhancedHGNN(nn.Module):
             node_dim: int,
             emb_dim: int = 128,
             num_layers: int = 2,
-            num_heads: int = 4,    # <--- 新增
+            num_heads: int = 4,   
             attn_dim: int = 128
     ):
 

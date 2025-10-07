@@ -127,8 +127,6 @@ evaluator: SimpleHypergraphEvaluator
         node_emb, _ = encoder(features, hyperedge_index)
         logits = cluster_module(node_emb)
         predicted_labels = torch.argmax(logits, dim=1)
-
-    # display_clustering_results(predicted_labels, ground_truth, max_display=10)
     return evaluator.evaluate(predicted_labels, ground_truth)
 
 def evaluate_with_kmeans(
@@ -209,8 +207,6 @@ def main(config_override=None):
         for method in ['cluster_module']:
             for metric in all_results[method].keys():
                 all_results[method][metric].append(run_results[method][metric])
-        
-
         if 'execution_time' in run_results:
             all_results['execution_times'].append(run_results['execution_time'])
 
@@ -227,12 +223,9 @@ def main(config_override=None):
         for method, metrics in all_results.items()
     }
     
-
     all_results['execution_times'] = execution_times
-    
     print("\n" + "="*50 + " 多次运行实验结果统计 " + "="*50)
     print(f"总运行次数: {len(seeds)}, 种子列表: {seeds}")
-    
     print("\n基于簇分配矩阵的评估结果 (均值 ± 标准差):")
     for metric in ['nmi', 'ari', 'acc', 'f1']:
         print(f"  {metric.upper()}: {mean_results['cluster_module'][metric]:.4f} ± {std_results['cluster_module'][metric]:.4f}")
@@ -240,13 +233,10 @@ def main(config_override=None):
     if 'execution_times' in all_results and all_results['execution_times']:
         avg_time = np.mean(all_results['execution_times'])
         total_time = sum(all_results['execution_times'])
-        
         avg_hours, avg_remainder = divmod(avg_time, 3600)
         avg_minutes, avg_seconds = divmod(avg_remainder, 60)
-        
         total_hours, total_remainder = divmod(total_time, 3600)
         total_minutes, total_seconds = divmod(total_remainder, 60)
-        
         print("\n时间统计:")
         print(f"  平均运行时间: {int(avg_hours):02d}小时{int(avg_minutes):02d}分钟{avg_seconds:.2f}秒")
         print(f"  总运行时间: {int(total_hours):02d}小时{int(total_minutes):02d}分钟{total_seconds:.2f}秒")

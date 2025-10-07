@@ -13,15 +13,11 @@ class SimpleHypergraphEvaluator:
                  predicted_labels: Union[torch.Tensor, np.ndarray],
                  ground_truth: Union[torch.Tensor, np.ndarray]) -> Dict:
 
-        if isinstance(predicted_labels, torch.Tensor):
-            y_pred = predicted_labels.cpu().numpy()
-        else:
-            y_pred = np.asarray(predicted_labels)
+        if isinstance(predicted_labels, torch.Tensor):y_pred = predicted_labels.cpu().numpy()
+        else:y_pred = np.asarray(predicted_labels)
             
-        if isinstance(ground_truth, torch.Tensor):
-            y_true = ground_truth.cpu().numpy()
-        else:
-            y_true = np.asarray(ground_truth)
+        if isinstance(ground_truth, torch.Tensor):y_true = ground_truth.cpu().numpy()
+        else:y_true = np.asarray(ground_truth)
 
         acc = self._calculate_acc(y_true, y_pred)
         nmi = normalized_mutual_info_score(y_true, y_pred)
