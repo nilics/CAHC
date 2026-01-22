@@ -173,21 +173,21 @@ def main(config_override=None):
     config = {
         'dataset_name': args.dataset ,                       
         'exp_name': args.dataset,
-        'emb_dim': 256,               
+        'emb_dim': 512,               
         'num_layers': 1,                
-        'lr': 8.0e-4,
+        'lr': 5.0e-4,
         'finetune_lr_scale': 1,
-        'weight_decay': 5.0e-05,
-        'pretrain_epochs':260,
-        'finetune_epochs':100,
-        'epoch_eval' : 100,
+        'weight_decay': 5.0e-04,
+        'pretrain_epochs':180,
+        'finetune_epochs':120,
+        'epoch_eval' : 120,
         'seed': 42,
         'alpha': 1,
         'beta': 1,
         'tau': 0.5,
         'gamma': 1,
         'feat_mask_rate': 0.4,
-        'edge_drop_rate': 0.2
+        'edge_drop_rate': 0.4
     }
 
     if config_override:
